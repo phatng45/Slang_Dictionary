@@ -9,6 +9,7 @@ import java.util.Random;
 public class Dictionary {
     HashMap<String, HashSet<String>> words    = new HashMap<>();
     HashMap<String, HashSet<String>> partials = new HashMap<>();
+    boolean                          isSaved  = true;
 
     public void put(String newWord, String newDefinition) {
         if (!words.containsKey(newWord))
@@ -20,6 +21,8 @@ public class Dictionary {
                 partials.put(newPartial, new HashSet<>());
             partials.get(newPartial).add(newWord);
         }
+
+        isSaved = false;
     }
 
     public void put(String newWord, String[] newDefinitions) {
@@ -35,9 +38,8 @@ public class Dictionary {
         String[]        partialsToGet = definition.split(" ");
         HashSet<String> wordsToGet    = new HashSet<>(partials.get(partialsToGet[0]));
 
-        for (int i = 1; i < partialsToGet.length; ++i) {
+        for (int i = 1; i < partialsToGet.length && wordsToGet.size() > 0; ++i)
             wordsToGet.retainAll(partials.get(partialsToGet[i]));
-        }
 
         return wordsToGet;
     }
@@ -48,6 +50,7 @@ public class Dictionary {
             for (String partial : definition.split(" "))
                 partials.get(partial).remove(word);
 
+        isSaved = false;
         return definitionsToRemove;
     }
 
@@ -62,6 +65,7 @@ public class Dictionary {
         for (String word : wordsToRemove)
             words.get(definition).remove(word);
 
+        isSaved = false;
         return wordsToRemove;
     }
 
@@ -117,6 +121,7 @@ public class Dictionary {
             return e.getMessage();
         }
 
+        isSaved = true;
         return "";
     }
 
@@ -134,6 +139,7 @@ public class Dictionary {
             return e.getMessage();
         }
 
+        isSaved = true;
         return "";
     }
 
@@ -153,6 +159,7 @@ public class Dictionary {
             return e.getMessage();
         }
 
+        isSaved = true;
         return "";
     }
 

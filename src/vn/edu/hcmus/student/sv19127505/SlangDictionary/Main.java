@@ -1,7 +1,5 @@
 package vn.edu.hcmus.student.sv19127505.SlangDictionary;
 
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] args) {
