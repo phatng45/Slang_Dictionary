@@ -111,8 +111,8 @@ public class Dictionary {
 
             for (String line = br.readLine(); line != null; line = br.readLine()) {
                 data = line.split("`");
-                if (data.length <= 1) continue;
-                put(data[0], data[1].split("\\s*\\|\\s*"));
+                if (data.length > 1)
+                    put(data[0], data[1].split("\\s*\\|\\s*"));
             }
 
             br.close();
