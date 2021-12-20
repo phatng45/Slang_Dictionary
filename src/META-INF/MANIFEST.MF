@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: vn.edu.hcmus.student.sv19127505.SlangDictionary.Main
-
