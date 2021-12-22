@@ -30,7 +30,6 @@ public class Main extends javax.swing.JFrame {
 
     private void updateSearchTable(String[][] a) {
         searchTable.setModel(new AbstractTableModel() {
-            final String[][] table = a;
             final String[] columns = {"Name", "Definition"};
 
             @Override
@@ -63,7 +62,6 @@ public class Main extends javax.swing.JFrame {
     
     private void updateHistoryTable(String[][] a) {
         historyTable.setModel(new AbstractTableModel() {
-            final String[][] table = a;
             final String[] columns = {"Name", "Definition", "Time"};
 
             @Override
