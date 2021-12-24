@@ -152,9 +152,7 @@ public class Dictionary {
 
     public String save(String filepath) {
         try {
-            FileOutputStream fos = new FileOutputStream(filepath);
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filepath)));
             oos.writeObject(words);
             oos.writeObject(partials);
 
@@ -171,9 +169,7 @@ public class Dictionary {
     @SuppressWarnings("unchecked")
     public String load(String filepath) {
         try {
-            FileInputStream fis = new FileInputStream(filepath);
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            ObjectInputStream ois = new ObjectInputStream(bis);
+            ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filepath)));
 
             words = (HashMap<String, HashSet<String>>) ois.readObject();
             partials = (HashMap<String, HashSet<String>>) ois.readObject();

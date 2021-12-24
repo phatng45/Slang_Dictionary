@@ -23,10 +23,8 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     Dictionary dict;
+    DictionaryHistory history;
     CardLayout cardLayout;
-
-    ArrayList<ArrayList<String>> history;
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     private void updateSearchTable(String[][] a) {
         searchTable.setModel(new AbstractTableModel() {
@@ -55,11 +53,10 @@ public class Main extends javax.swing.JFrame {
         );
     }
 
-    
-    private String[][] to2DArray(ArrayList<ArrayList<String>> a){
+    private String[][] to2DArray(ArrayList<ArrayList<String>> a) {
         return a.stream().map(u -> u.toArray(String[]::new)).toArray(String[][]::new);
     }
-    
+
     private void updateHistoryTable(String[][] a) {
         historyTable.setModel(new AbstractTableModel() {
             final String[] columns = {"Name", "Definition", "Time"};
@@ -89,9 +86,21 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         dict = new Dictionary();
-        history = new ArrayList();
+        history = new DictionaryHistory();
 
-        System.out.println(dict.reset("slang.txt"));
+        String status = dict.load("data/dict.ser");
+        if (!"".equals(status)) {
+            System.out.println(status);
+            System.out.println("Generating new dictionary... It is recommended to not change the data folder in order to have a faster accessibility next time you run the app.");
+            System.out.println(dict.reset("slang.txt"));
+        }
+
+        status = history.load("data/history.ser");
+        if (!"".equals(status)) {
+            System.out.println(status);
+            System.out.println("Generating new history... It is recommended to not change the data folder in order to have a faster accessibility next time you run the app.");
+        }
+
         initComponents();
 
         cardLayout = (CardLayout) (Cards.getLayout());
@@ -159,7 +168,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1.setName(""); // NOI18N
         jScrollPane1.setPreferredSize(new java.awt.Dimension(441, 257));
 
-        updateHistoryTable(to2DArray(history));
+        updateHistoryTable(history.to2DArray());
         historyTable.setAutoCreateRowSorter(true);
         historyTable.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         historyTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -205,13 +214,18 @@ public class Main extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Slang Dictionary");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setMinimumSize(new java.awt.Dimension(921, 622));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -536,12 +550,6 @@ public class Main extends javax.swing.JFrame {
         String d = filterDefinition.getText();
         HashSet<String> result = new HashSet<>();
 
-        ArrayList<String> h = new ArrayList();
-        h.add(w);
-        h.add(d);
-        h.add(dtf.format(LocalDateTime.now()));
-        history.add(h);
-
         int size = 0;
 
         if (!w.isBlank()) {
@@ -584,7 +592,7 @@ public class Main extends javax.swing.JFrame {
 
     private void Search_viewHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_viewHistoryActionPerformed
         // TODO add your handling code here:
-        updateHistoryTable(to2DArray(history));
+        updateHistoryTable(history.to2DArray());
         historyWindow.setVisible(true);
     }//GEN-LAST:event_Search_viewHistoryActionPerformed
 
@@ -619,6 +627,30 @@ public class Main extends javax.swing.JFrame {
         setActive(btn_Edit);
 
     }//GEN-LAST:event_btn_EditMousePressed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if (dict.isSaved == false) {
+            String[] options = new String[]{"Close Anyways", "Cancel", "Save"};
+            int confirm = JOptionPane.showOptionDialog(
+                    null,
+                    "Save changes to the Dictionary before closing?",
+                    "Slang Dictionary",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+            switch(confirm){
+                case 0 -> System.exit(0);
+                case 1 -> {return;}
+                case 2 -> System.out.println(dict.save("data/dict.ser"));
+            }
+        }
+        
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
