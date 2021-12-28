@@ -53,10 +53,6 @@ public class Main extends javax.swing.JFrame {
         );
     }
 
-    private String[][] to2DArray(ArrayList<ArrayList<String>> a) {
-        return a.stream().map(u -> u.toArray(String[]::new)).toArray(String[][]::new);
-    }
-
     private void updateHistoryTable(String[][] a) {
         historyTable.setModel(new AbstractTableModel() {
             final String[] columns = {"Name", "Definition", "Time"};
@@ -92,7 +88,7 @@ public class Main extends javax.swing.JFrame {
         if (!"".equals(status)) {
             System.out.println(status);
             System.out.println("Generating new dictionary... It is recommended to not change the data folder in order to have a faster accessibility next time you run the app.");
-            System.out.println(dict.reset("slang.txt"));
+            System.out.println(dict.reset("slang.txt").toUpperCase());
         }
 
         status = history.load("data/history.ser");
@@ -550,42 +546,35 @@ public class Main extends javax.swing.JFrame {
         String d = filterDefinition.getText();
         HashSet<String> result = new HashSet<>();
 
-        int size = 0;
-
         if (!w.isBlank()) {
-            if (dict.words.containsKey(w)) {
-                result.add(w);
-                if (!d.isBlank()) {
-                    result.retainAll(dict.getWords(d));
-                }
-            }
-            if (!result.isEmpty()) {
-                size = dict.words.get(w).size();
-            }
-        } else {
-            if (!d.isBlank()) {
-                HashSet<String> words = dict.getWords(d);
-                result.addAll(words);
+            for (String word : dict.words.keySet())
+                if (word.contains(w))
+                    result.add(word);
 
-                if (!result.isEmpty()) {
-                    for (String word : words)
-                        size += dict.words.get(word).size();
-                }
-            } else {
+            if (!d.isBlank())
+                result.retainAll(dict.getWords(d));
+        } else {
+
+            if (!d.isBlank())
+                result.addAll(dict.getWords(d));
+            else {
                 updateSearchTable(dict.to2DArray());
                 return;
             }
         }
 
+        int size = 0;
+        if (!result.isEmpty())
+            for (String word : result)
+                size += dict.getDefinitions(word).size();
+
         String[][] resultTable = new String[size][2];
         int i = 0;
-        for (String word : result) {
-            System.out.println(word);
+        for (String word : result)
             for (String definition : dict.words.get(word)) {
                 resultTable[i][0] = word;
                 resultTable[i++][1] = definition;
             }
-        }
 
         updateSearchTable(resultTable);
     }//GEN-LAST:event_Search_searchActionPerformed
@@ -642,13 +631,17 @@ public class Main extends javax.swing.JFrame {
                     options,
                     options[0]
             );
-            switch(confirm){
-                case 0 -> System.exit(0);
-                case 1 -> {return;}
-                case 2 -> System.out.println(dict.save("data/dict.ser"));
+            switch (confirm) {
+                case 0 ->
+                    System.exit(0);
+                case 1 -> {
+                    return;
+                }
+                case 2 ->
+                    System.out.println(dict.save("data/dict.ser"));
             }
         }
-        
+
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
