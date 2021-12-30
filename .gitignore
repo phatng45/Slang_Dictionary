@@ -3,3 +3,4 @@ out/
 test/
 nbproject/
 build/
+data/history.ser

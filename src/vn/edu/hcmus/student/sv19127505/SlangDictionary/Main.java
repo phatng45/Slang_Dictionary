@@ -127,6 +127,11 @@ public class Main extends javax.swing.JFrame {
         btn_Edit = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         Cards = new javax.swing.JPanel();
         SearchCard = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -142,11 +147,23 @@ public class Main extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         EditCard = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        searchTable1 = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        filterWord1 = new javax.swing.JTextField();
+        filterDefinition1 = new javax.swing.JTextField();
+        Search_search1 = new javax.swing.JButton();
+        Search_search2 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        Search_search3 = new javax.swing.JButton();
+        Search_search4 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        Search_search5 = new javax.swing.JButton();
+        Search_search6 = new javax.swing.JButton();
 
         historyWindow.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        historyWindow.setMaximumSize(new java.awt.Dimension(509, 404));
         historyWindow.setMinimumSize(new java.awt.Dimension(509, 404));
-        historyWindow.setPreferredSize(new java.awt.Dimension(509, 404));
         historyWindow.setResizable(false);
         historyWindow.setSize(new java.awt.Dimension(509, 404));
 
@@ -216,6 +233,7 @@ public class Main extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setMinimumSize(new java.awt.Dimension(921, 622));
+        setPreferredSize(new java.awt.Dimension(956, 670));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -224,6 +242,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(956, 647));
 
         btn_Search.setBackground(new java.awt.Color(131, 224, 255));
         btn_Search.setPreferredSize(new java.awt.Dimension(149, 53));
@@ -249,7 +268,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         btn_SearchLayout.setVerticalGroup(
             btn_SearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,30 +353,85 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        label1.setAlignment(java.awt.Label.CENTER);
+        label1.setName(""); // NOI18N
+        label1.setText("HCMUS - 19127505");
+
+        label2.setAlignment(java.awt.Label.CENTER);
+        label2.setName(""); // NOI18N
+        label2.setText("Building Java Application");
+
+        jLabel15.setFont(new java.awt.Font("Lato", 1, 35)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel15.setText("dictionary");
+        jLabel15.setToolTipText("");
+
+        jLabel16.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel16.setText("SLANG");
+        jLabel16.setToolTipText("");
+
+        jLabel17.setFont(new java.awt.Font("Lato", 1, 18)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel17.setText("1.0");
+        jLabel17.setToolTipText("");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_Search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-            .addComponent(btn_Edit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-            .addComponent(btn_Quiz, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+            .addComponent(btn_Search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(btn_Edit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addComponent(btn_Quiz, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17)))
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(22, 22, 22)
+                    .addComponent(jLabel16)
+                    .addContainerGap(67, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
+                .addGap(69, 69, 69)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addGap(80, 80, 80)
                 .addComponent(btn_Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_Quiz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addComponent(jLabel16)
+                    .addContainerGap(566, Short.MAX_VALUE)))
         );
 
         Cards.setBackground(new java.awt.Color(255, 255, 255));
         Cards.setLayout(new java.awt.CardLayout());
 
         SearchCard.setBackground(new java.awt.Color(255, 255, 255));
+        SearchCard.setPreferredSize(new java.awt.Dimension(800, 617));
 
         jLabel1.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
         jLabel1.setText("Search");
@@ -429,7 +503,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(Search_viewHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         SearchCardLayout.setVerticalGroup(
             SearchCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,7 +524,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(Search_viewHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         Cards.add(SearchCard, "SearchCard");
@@ -467,14 +541,14 @@ public class Main extends javax.swing.JFrame {
             .addGroup(QuizCardLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addContainerGap(371, Short.MAX_VALUE))
         );
         QuizCardLayout.setVerticalGroup(
             QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(QuizCardLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(519, Short.MAX_VALUE))
+                .addContainerGap(547, Short.MAX_VALUE))
         );
 
         Cards.add(QuizCard, "QuizCard");
@@ -484,21 +558,167 @@ public class Main extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
         jLabel11.setText("Edit");
 
+        updateSearchTable(dict.to2DArray());
+        searchTable1.setAutoCreateRowSorter(true);
+        searchTable1.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        searchTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        searchTable1.setToolTipText("");
+        searchTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(searchTable1);
+
+        jLabel13.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
+        jLabel13.setText("Word Filter:");
+
+        jLabel14.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
+        jLabel14.setText("Definition Filter:");
+
+        filterWord1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterWord1ActionPerformed(evt);
+            }
+        });
+
+        filterDefinition1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterDefinition1ActionPerformed(evt);
+            }
+        });
+
+        Search_search1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Search_search1.setText("Search");
+        Search_search1.setPreferredSize(new java.awt.Dimension(77, 27));
+        Search_search1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_search1ActionPerformed(evt);
+            }
+        });
+
+        Search_search2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Search_search2.setText("Add");
+        Search_search2.setToolTipText("");
+        Search_search2.setPreferredSize(new java.awt.Dimension(77, 27));
+        Search_search2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_search2ActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
+
+        Search_search3.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Search_search3.setText("Edit");
+        Search_search3.setToolTipText("");
+        Search_search3.setPreferredSize(new java.awt.Dimension(77, 27));
+        Search_search3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_search3ActionPerformed(evt);
+            }
+        });
+
+        Search_search4.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Search_search4.setText("Remove");
+        Search_search4.setToolTipText("");
+        Search_search4.setPreferredSize(new java.awt.Dimension(77, 27));
+        Search_search4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_search4ActionPerformed(evt);
+            }
+        });
+
+        Search_search5.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        Search_search5.setForeground(new java.awt.Color(255, 0, 0));
+        Search_search5.setText("Reset");
+        Search_search5.setToolTipText("");
+        Search_search5.setPreferredSize(new java.awt.Dimension(77, 27));
+        Search_search5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_search5ActionPerformed(evt);
+            }
+        });
+
+        Search_search6.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Search_search6.setText("Save");
+        Search_search6.setToolTipText("");
+        Search_search6.setPreferredSize(new java.awt.Dimension(77, 27));
+        Search_search6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search_search6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EditCardLayout = new javax.swing.GroupLayout(EditCard);
         EditCard.setLayout(EditCardLayout);
         EditCardLayout.setHorizontalGroup(
             EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditCardLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(EditCardLayout.createSequentialGroup()
+                        .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(EditCardLayout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(5, 5, 5)
+                                .addComponent(filterWord1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(EditCardLayout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(filterDefinition1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(Search_search1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Search_search2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addComponent(Search_search3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                    .addComponent(Search_search4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                    .addComponent(Search_search5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator2)
+                    .addComponent(Search_search6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EditCardLayout.setVerticalGroup(
             EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditCardLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(519, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(EditCardLayout.createSequentialGroup()
+                        .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(filterWord1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(filterDefinition1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Search_search1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(EditCardLayout.createSequentialGroup()
+                        .addComponent(Search_search2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Search_search3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Search_search4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Search_search6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Search_search5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
 
         Cards.add(EditCard, "EditCard");
@@ -510,7 +730,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Cards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Cards, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -522,7 +742,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,6 +764,7 @@ public class Main extends javax.swing.JFrame {
 
         String w = filterWord.getText();
         String d = filterDefinition.getText();
+        history.add(w, d);
         HashSet<String> result = new HashSet<>();
 
         if (!w.isBlank()) {
@@ -571,7 +792,7 @@ public class Main extends javax.swing.JFrame {
         String[][] resultTable = new String[size][2];
         int i = 0;
         for (String word : result)
-            for (String definition : dict.words.get(word)) {
+            for (String definition : dict.getDefinitions(word)) {
                 resultTable[i][0] = word;
                 resultTable[i++][1] = definition;
             }
@@ -641,9 +862,41 @@ public class Main extends javax.swing.JFrame {
                     System.out.println(dict.save("data/dict.ser"));
             }
         }
-
+        history.save("data/history.ser");
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
+
+    private void Search_search5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_search5ActionPerformed
+
+    private void Search_search4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_search4ActionPerformed
+
+    private void Search_search3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_search3ActionPerformed
+
+    private void Search_search2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_search2ActionPerformed
+
+    private void Search_search1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_search1ActionPerformed
+
+    private void filterDefinition1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterDefinition1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterDefinition1ActionPerformed
+
+    private void filterWord1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterWord1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterWord1ActionPerformed
+
+    private void Search_search6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Search_search6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -688,18 +941,31 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel QuizCard;
     private javax.swing.JPanel SearchCard;
     private javax.swing.JButton Search_search;
+    private javax.swing.JButton Search_search1;
+    private javax.swing.JButton Search_search2;
+    private javax.swing.JButton Search_search3;
+    private javax.swing.JButton Search_search4;
+    private javax.swing.JButton Search_search5;
+    private javax.swing.JButton Search_search6;
     private javax.swing.JButton Search_viewHistory;
     private javax.swing.JPanel btn_Edit;
     private javax.swing.JPanel btn_Quiz;
     private javax.swing.JPanel btn_Search;
     private javax.swing.JTextField filterDefinition;
+    private javax.swing.JTextField filterDefinition1;
     private javax.swing.JTextField filterWord;
+    private javax.swing.JTextField filterWord1;
     private javax.swing.JTable historyTable;
     private javax.swing.JFrame historyWindow;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -713,6 +979,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
     private javax.swing.JTable searchTable;
+    private javax.swing.JTable searchTable1;
     // End of variables declaration//GEN-END:variables
 }

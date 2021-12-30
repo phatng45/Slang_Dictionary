@@ -57,7 +57,7 @@ public class Dictionary {
         return wordsToGet;
     }
 
-    public HashSet<String> removeWord(String word) {
+    private HashSet<String> removeWord(String word) {
         HashSet<String> definitionsToRemove = words.remove(word);
         for (String definition : definitionsToRemove)
             for (String partial : definition.toLowerCase().split(" "))
@@ -67,28 +67,19 @@ public class Dictionary {
         return definitionsToRemove;
     }
 
-    public HashSet<String> removeDefinition(String definition) {
+    public void remove(String word, String definition) {
         String[] partialsToRemove = definition.toLowerCase().split(" ");
-        HashSet<String> wordsToRemove = new HashSet<>();
 
-        if (partials.containsKey(partialsToRemove[0])) {
-            wordsToRemove.addAll(partials.get(partialsToRemove[0]));
-        } else {
-            return new HashSet<>();
+        for(String partial: partialsToRemove){
+            partials.get(partial).remove(word);
         }
 
-        for (int i = 1; i < partialsToRemove.length; ++i)
-            if (partials.containsKey(partialsToRemove[i])) {
-                wordsToRemove.retainAll(partials.get(partialsToRemove[i]));
-            } else {
-                return new HashSet<>();
-            }
-
-        for (String word : wordsToRemove)
-            words.get(word).remove(definition);
-
+        this.getDefinitions(word).remove(definition);
+        if(this.getDefinitions(word).isEmpty()){
+            words.remove(word);
+        }
+        
         isSaved = false;
-        return wordsToRemove;
     }
 
     public void overwrite(String word, String newDefinition) {
@@ -96,10 +87,10 @@ public class Dictionary {
         put(word, newDefinition);
     }
 
-    public void overwrite(String word, String[] newDefinitions) {
-        removeWord(word);
-        put(word, newDefinitions);
-    }
+//    public void overwrite(String word, String[] newDefinitions) {
+//        removeWord(word);
+//        put(word, newDefinitions);
+//    }
 
     public String randomWord() {
         int index = (new Random()).nextInt(words.size());
@@ -203,7 +194,7 @@ public class Dictionary {
         String[][] a = new String[words.values().stream().mapToInt(HashSet::size).sum()][2];
         int i = 0;
         for (String word : words.keySet())
-            for (String definition : words.get(word)) {
+            for (String definition : this.getDefinitions(word)) {
                 a[i][0] = word;
                 a[i++][1] = definition;
             }
