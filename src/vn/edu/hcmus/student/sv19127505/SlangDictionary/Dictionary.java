@@ -1,6 +1,8 @@
 package vn.edu.hcmus.student.sv19127505.SlangDictionary;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -70,15 +72,15 @@ public class Dictionary {
     public void remove(String word, String definition) {
         String[] partialsToRemove = definition.toLowerCase().split(" ");
 
-        for(String partial: partialsToRemove){
+        for (String partial : partialsToRemove) {
             partials.get(partial).remove(word);
         }
 
         this.getDefinitions(word).remove(definition);
-        if(this.getDefinitions(word).isEmpty()){
+        if (this.getDefinitions(word).isEmpty()) {
             words.remove(word);
         }
-        
+
         isSaved = false;
     }
 
@@ -86,31 +88,78 @@ public class Dictionary {
         removeWord(word);
         put(word, newDefinition);
     }
-    
-    public void replace(String word, String oldDef, String newDef){
+
+    public void replace(String word, String oldDef, String newDef) {
         words.get(word).add(newDef);
         words.remove(word, oldDef);
-        
+
         isSaved = false;
     }
-    
 
 //    public void overwrite(String word, String[] newDefinitions) {
 //        removeWord(word);
 //        put(word, newDefinitions);
-//    }
+//    
+    /**
+     *
+     * @return an array, in which: 1st ~ 4th: 4 definitions (randomized) 5th:
+     * the word 6th: the index of the correct definition to the word
+     */
+    public ArrayList<Object> randomWord() {
+        // init Random
+        Random r = new Random();
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+        
+        // get the center index
+        int center = r.nextInt(partials.size());
 
-    public String randomWord() {
-        int index = (new Random()).nextInt(words.size());
-        Iterator<String> it = words.keySet().iterator();
+        HashSet<Integer> indexes = new HashSet<>();
 
-        for (int i = 0; i < index - 1; i++)
-            it.next();
+        // get a set of indexes with +- 15 around the center
+        while (indexes.size() < 5) {
+            indexes.add(center + (r.nextBoolean() ? 1 : -1) * r.nextInt(5));
+        }
 
-        return it.next();
+        // get the iterator
+        Iterator<String> it = partials.keySet().iterator();
+        ArrayList<Object> res = new ArrayList<>();
+
+        // loop through the partials keySet
+        for (int i = 0; i < Collections.max(indexes); i++)
+            // if the current i matches one of the indexes
+            if (indexes.contains(i)) {
+                // add a random word gotten from the partials
+                Object[] ws = partials.get(it.next()).toArray();
+                res.add(ws[r.nextInt(ws.length)]);
+            } else
+                it.next();
+
+        // get a random index as the answer
+        int answerIndex = r.nextInt(res.size());
+        
+        // add a copy of answer and the index
+        res.add(res.get(answerIndex));
+        res.add(answerIndex);
+
+        // loop through the first 4 results
+        for (int i = 0; i < 4; ++i) {
+            // transform each word to one of its definitions
+            Object[] defs = getDefinitions((String) res.get(i)).toArray();
+            res.set(i, defs[r.nextInt(defs.length)]);
+        }
+        
+        return res;
     }
 
-    public String randomDefinition() {
+    public String randomDefinitions() {
         HashSet<String> word = words.get(randomWord());
         int index = (new Random()).nextInt(word.size());
         Iterator<String> it = word.iterator();
