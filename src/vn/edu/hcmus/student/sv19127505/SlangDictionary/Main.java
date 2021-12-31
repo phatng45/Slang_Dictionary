@@ -141,7 +141,21 @@ public class Main extends javax.swing.JFrame {
         Search_search = new javax.swing.JButton();
         Search_viewHistory = new javax.swing.JButton();
         QuizCard = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        Quiz_wordMode = new javax.swing.JButton();
+        Quiz_definitionMode = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        QuizGameCard = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
         EditCard = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -224,9 +238,7 @@ public class Main extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        addWindow.setMaximumSize(new java.awt.Dimension(397, 266));
         addWindow.setMinimumSize(new java.awt.Dimension(397, 266));
-        addWindow.setPreferredSize(new java.awt.Dimension(397, 266));
         addWindow.setResizable(false);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -333,9 +345,7 @@ public class Main extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        editWindow.setMaximumSize(new java.awt.Dimension(397, 266));
         editWindow.setMinimumSize(new java.awt.Dimension(397, 266));
-        editWindow.setPreferredSize(new java.awt.Dimension(397, 266));
         editWindow.setResizable(false);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -730,7 +740,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(Search_viewHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         SearchCardLayout.setVerticalGroup(
             SearchCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -758,27 +768,190 @@ public class Main extends javax.swing.JFrame {
 
         QuizCard.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
-        jLabel6.setText("Quiz");
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Highscore", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lato", 1, 24))); // NOI18N
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 161, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jLabel24.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
+        jLabel24.setText("Quiz");
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Game modes", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lato", 1, 24))); // NOI18N
+
+        Quiz_wordMode.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Quiz_wordMode.setText("Word Mode");
+        Quiz_wordMode.setPreferredSize(new java.awt.Dimension(77, 27));
+        Quiz_wordMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Quiz_wordModeActionPerformed(evt);
+            }
+        });
+
+        Quiz_definitionMode.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Quiz_definitionMode.setText("Definition Mode");
+        Quiz_definitionMode.setActionCommand("Definition Mode");
+        Quiz_definitionMode.setPreferredSize(new java.awt.Dimension(77, 27));
+        Quiz_definitionMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Quiz_definitionModeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Quiz_wordMode, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+                    .addComponent(Quiz_definitionMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Quiz_wordMode, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(Quiz_definitionMode, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+        );
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "How to play?", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lato", 1, 24))); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Choose the correct answer. Each correct answer will earn you 10 points, a quick and correct");
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel25.setText("answer will earn you 30 points instead. A wrong answer or a time's up will cost you a heart.");
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel26.setText("The game will be over when you lost 2 hearts.");
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel27.setText("The question is a word, the correct answer is one among 4 definitions.");
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel29.setText("Word Mode: ");
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel30.setText("Definition Mode: ");
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel31.setText("The question is a definition, the correct answer is one among 4 words.");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel26)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel25)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel25)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel29))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel30))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout QuizCardLayout = new javax.swing.GroupLayout(QuizCard);
         QuizCard.setLayout(QuizCardLayout);
         QuizCardLayout.setHorizontalGroup(
             QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(QuizCardLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(QuizCardLayout.createSequentialGroup()
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(140, Short.MAX_VALUE))
+            .addGroup(QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(QuizCardLayout.createSequentialGroup()
+                    .addGap(29, 29, 29)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(451, Short.MAX_VALUE)))
         );
         QuizCardLayout.setVerticalGroup(
             QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(QuizCardLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(547, Short.MAX_VALUE))
+                .addGap(184, 184, 184)
+                .addGroup(QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(QuizCardLayout.createSequentialGroup()
+                    .addGap(29, 29, 29)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(547, Short.MAX_VALUE)))
         );
 
         Cards.add(QuizCard, "QuizCard");
+
+        QuizGameCard.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel28.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
+        jLabel28.setText("Quiz");
+
+        javax.swing.GroupLayout QuizGameCardLayout = new javax.swing.GroupLayout(QuizGameCard);
+        QuizGameCard.setLayout(QuizGameCardLayout);
+        QuizGameCardLayout.setHorizontalGroup(
+            QuizGameCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(QuizGameCardLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(371, Short.MAX_VALUE))
+        );
+        QuizGameCardLayout.setVerticalGroup(
+            QuizGameCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(QuizGameCardLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(547, Short.MAX_VALUE))
+        );
+
+        Cards.add(QuizGameCard, "QuizGameCard");
 
         EditCard.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1312,6 +1485,36 @@ public class Main extends javax.swing.JFrame {
         editWindow.dispose();
     }//GEN-LAST:event_Edit_cancelActionPerformed
 
+    private void Quiz_wordModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Quiz_wordModeActionPerformed
+        startGame(0);
+    }//GEN-LAST:event_Quiz_wordModeActionPerformed
+
+    private void Quiz_definitionModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Quiz_definitionModeActionPerformed
+        startGame(1);
+    }//GEN-LAST:event_Quiz_definitionModeActionPerformed
+
+    private void startGame(int GameMode) {
+        cardLayout.show(Cards, "QuizGameCard");
+
+        // Game started, disable buttons
+        btn_Search.setEnabled(false);
+        btn_Quiz.setEnabled(false);
+        btn_Edit.setEnabled(false);
+
+        short heart = 2;
+
+        while (heart != 0) {
+
+            
+            
+            
+        }
+
+        btn_Search.setEnabled(true);
+        btn_Quiz.setEnabled(true);
+        btn_Edit.setEnabled(true);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1368,6 +1571,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton Edit_search;
     private javax.swing.JTextField Edit_word;
     private javax.swing.JPanel QuizCard;
+    private javax.swing.JPanel QuizGameCard;
+    private javax.swing.JButton Quiz_definitionMode;
+    private javax.swing.JButton Quiz_wordMode;
     private javax.swing.JPanel SearchCard;
     private javax.swing.JTextField Search_filterDefinition;
     private javax.swing.JTextField Search_filterWord;
@@ -1397,7 +1603,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1409,6 +1623,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
