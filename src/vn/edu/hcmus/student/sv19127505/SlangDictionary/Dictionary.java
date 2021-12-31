@@ -86,6 +86,12 @@ public class Dictionary {
         removeWord(word);
         put(word, newDefinition);
     }
+    
+    public void replace(String word, String oldDef, String newDef){
+        words.get(word).add(newDef);
+        words.remove(word, oldDef);
+    }
+    
 
 //    public void overwrite(String word, String[] newDefinitions) {
 //        removeWord(word);

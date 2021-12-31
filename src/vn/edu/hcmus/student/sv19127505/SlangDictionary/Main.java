@@ -6,12 +6,10 @@ package vn.edu.hcmus.student.sv19127505.SlangDictionary;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.event.*;
 
 /**
  *
@@ -26,23 +24,25 @@ public class Main extends javax.swing.JFrame {
     DictionaryHistory history;
     CardLayout cardLayout;
 
-    private void updateSearchTable(String[][] a) {
-        searchTable.setModel(new AbstractTableModel() {
-            final String[] columns = {"Name", "Definition"};
+    final String[] searchColumns = {"Word", "Definition"};
+    final String[] historyColumns = {"Word", "Definition", "Time"};
+
+    private void updateTable(JTable table, String[][] tableContent, String[] columns) {
+        table.setModel(new AbstractTableModel() {
 
             @Override
             public int getRowCount() {
-                return a.length;
+                return tableContent.length;
             }
 
             @Override
             public int getColumnCount() {
-                return 2;
+                return columns.length;
             }
 
             @Override
             public Object getValueAt(int row, int col) {
-                return a[row][col];
+                return tableContent[row][col];
             }
 
             @Override
@@ -51,33 +51,10 @@ public class Main extends javax.swing.JFrame {
             }
         }
         );
-    }
 
-    private void updateHistoryTable(String[][] a) {
-        historyTable.setModel(new AbstractTableModel() {
-            final String[] columns = {"Name", "Definition", "Time"};
-
-            @Override
-            public int getRowCount() {
-                return a.length;
-            }
-
-            @Override
-            public int getColumnCount() {
-                return 3;
-            }
-
-            @Override
-            public Object getValueAt(int row, int col) {
-                return a[row][col];
-            }
-
-            @Override
-            public String getColumnName(int index) {
-                return columns[index];
-            }
-        }
-        );
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(0).setMinWidth(100);
+        table.getColumnModel().getColumn(0).setMaxWidth(100);
     }
 
     public Main() {
@@ -99,7 +76,9 @@ public class Main extends javax.swing.JFrame {
 
         initComponents();
 
+        updateTable(searchTable, dict.to2DArray(), searchColumns);
         cardLayout = (CardLayout) (Cards.getLayout());
+
     }
 
     /**
@@ -116,6 +95,24 @@ public class Main extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         historyTable = new javax.swing.JTable();
+        addWindow = new javax.swing.JFrame();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        Add_word = new javax.swing.JTextField();
+        Add_definition = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        Add_confirm = new javax.swing.JButton();
+        Add_cancel = new javax.swing.JButton();
+        editWindow = new javax.swing.JFrame();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        Edit_word = new javax.swing.JTextField();
+        Edit_definition = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        Edit_confirm = new javax.swing.JButton();
+        Edit_cancel = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btn_Search = new javax.swing.JPanel();
@@ -137,8 +134,8 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        filterWord = new javax.swing.JTextField();
-        filterDefinition = new javax.swing.JTextField();
+        Search_filterWord = new javax.swing.JTextField();
+        Search_filterDefinition = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
         Search_search = new javax.swing.JButton();
@@ -148,19 +145,19 @@ public class Main extends javax.swing.JFrame {
         EditCard = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        searchTable1 = new javax.swing.JTable();
+        editTable = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        filterWord1 = new javax.swing.JTextField();
-        filterDefinition1 = new javax.swing.JTextField();
-        Search_search1 = new javax.swing.JButton();
-        Search_search2 = new javax.swing.JButton();
+        Edit_filterWord = new javax.swing.JTextField();
+        Edit_filterDefinition = new javax.swing.JTextField();
+        Edit_search = new javax.swing.JButton();
+        Edit_add = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        Search_search3 = new javax.swing.JButton();
-        Search_search4 = new javax.swing.JButton();
+        Edit_edit = new javax.swing.JButton();
+        Edit_remove = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        Search_search5 = new javax.swing.JButton();
-        Search_search6 = new javax.swing.JButton();
+        Edit_reset = new javax.swing.JButton();
+        Edit_save = new javax.swing.JButton();
 
         historyWindow.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         historyWindow.setMinimumSize(new java.awt.Dimension(509, 404));
@@ -181,7 +178,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1.setName(""); // NOI18N
         jScrollPane1.setPreferredSize(new java.awt.Dimension(441, 257));
 
-        updateHistoryTable(history.to2DArray());
+        updateTable(historyTable, history.to2DArray(), historyColumns);
         historyTable.setAutoCreateRowSorter(true);
         historyTable.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
         historyTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -227,13 +224,232 @@ public class Main extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        addWindow.setMaximumSize(new java.awt.Dimension(397, 266));
+        addWindow.setMinimumSize(new java.awt.Dimension(397, 266));
+        addWindow.setPreferredSize(new java.awt.Dimension(397, 266));
+        addWindow.setResizable(false);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setMaximumSize(new java.awt.Dimension(397, 266));
+        jPanel4.setMinimumSize(new java.awt.Dimension(397, 266));
+        jPanel4.setName(""); // NOI18N
+        jPanel4.setPreferredSize(new java.awt.Dimension(397, 266));
+
+        jLabel18.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
+        jLabel18.setText("Add");
+
+        Add_word.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Add_wordActionPerformed(evt);
+            }
+        });
+
+        Add_definition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Add_definitionActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
+        jLabel19.setText("New Word:");
+
+        jLabel20.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
+        jLabel20.setText("New Definition:");
+
+        Add_confirm.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Add_confirm.setText("Confirm");
+        Add_confirm.setToolTipText("");
+        Add_confirm.setPreferredSize(new java.awt.Dimension(77, 27));
+        Add_confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Add_confirmActionPerformed(evt);
+            }
+        });
+
+        Add_cancel.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Add_cancel.setText("Cancel");
+        Add_cancel.setToolTipText("");
+        Add_cancel.setPreferredSize(new java.awt.Dimension(77, 27));
+        Add_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Add_cancelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Add_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Add_word, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                                    .addComponent(Add_definition)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(Add_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(Add_word, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(Add_definition, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Add_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Add_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout addWindowLayout = new javax.swing.GroupLayout(addWindow.getContentPane());
+        addWindow.getContentPane().setLayout(addWindowLayout);
+        addWindowLayout.setHorizontalGroup(
+            addWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        addWindowLayout.setVerticalGroup(
+            addWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        editWindow.setMaximumSize(new java.awt.Dimension(397, 266));
+        editWindow.setMinimumSize(new java.awt.Dimension(397, 266));
+        editWindow.setPreferredSize(new java.awt.Dimension(397, 266));
+        editWindow.setResizable(false);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setMaximumSize(new java.awt.Dimension(397, 266));
+        jPanel5.setMinimumSize(new java.awt.Dimension(397, 266));
+        jPanel5.setName(""); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
+        jLabel21.setText("Edit");
+
+        Edit_word.setEnabled(false);
+        Edit_word.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Edit_wordActionPerformed(evt);
+            }
+        });
+
+        Edit_definition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Edit_definitionActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
+        jLabel22.setText("Word:");
+
+        jLabel23.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
+        jLabel23.setText("Definition:");
+
+        Edit_confirm.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Edit_confirm.setText("Confirm");
+        Edit_confirm.setToolTipText("");
+        Edit_confirm.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Edit_confirmActionPerformed(evt);
+            }
+        });
+
+        Edit_cancel.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Edit_cancel.setText("Cancel");
+        Edit_cancel.setToolTipText("");
+        Edit_cancel.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Edit_cancelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(Edit_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel22))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Edit_word, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(Edit_definition)
+                            .addComponent(Edit_confirm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(Edit_word, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(Edit_definition, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Edit_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Edit_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout editWindowLayout = new javax.swing.GroupLayout(editWindow.getContentPane());
+        editWindow.getContentPane().setLayout(editWindowLayout);
+        editWindowLayout.setHorizontalGroup(
+            editWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        editWindowLayout.setVerticalGroup(
+            editWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Slang Dictionary");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setMinimumSize(new java.awt.Dimension(921, 622));
-        setPreferredSize(new java.awt.Dimension(956, 670));
+        setName("mainFrame"); // NOI18N
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -442,22 +658,33 @@ public class Main extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel5.setText("Definition Filter:");
 
-        filterWord.addActionListener(new java.awt.event.ActionListener() {
+        Search_filterWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterWordActionPerformed(evt);
+                Search_filterWordActionPerformed(evt);
             }
         });
 
-        filterDefinition.addActionListener(new java.awt.event.ActionListener() {
+        Search_filterDefinition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterDefinitionActionPerformed(evt);
+                Search_filterDefinitionActionPerformed(evt);
             }
         });
 
-        updateSearchTable(dict.to2DArray());
+        jScrollPane2.setToolTipText("");
+
+        updateTable(searchTable, dict.to2DArray(), searchColumns);
         searchTable.setAutoCreateRowSorter(true);
         searchTable.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        searchTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         searchTable.setToolTipText("");
+        searchTable.setRowHeight(20);
         searchTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(searchTable);
 
@@ -492,18 +719,18 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(SearchCardLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(5, 5, 5)
-                                .addComponent(filterWord, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Search_filterWord, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(SearchCardLayout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
-                                .addComponent(filterDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Search_filterDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(Search_search, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Search_viewHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
         SearchCardLayout.setVerticalGroup(
             SearchCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,11 +742,11 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(SearchCardLayout.createSequentialGroup()
                         .addGroup(SearchCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(filterWord, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Search_filterWord, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(SearchCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(filterDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Search_filterDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(Search_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Search_viewHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -541,7 +768,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(QuizCardLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(371, Short.MAX_VALUE))
+                .addContainerGap(461, Short.MAX_VALUE))
         );
         QuizCardLayout.setVerticalGroup(
             QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -558,10 +785,12 @@ public class Main extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
         jLabel11.setText("Edit");
 
-        updateSearchTable(dict.to2DArray());
-        searchTable1.setAutoCreateRowSorter(true);
-        searchTable1.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
-        searchTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPane3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        updateTable(editTable, dict.to2DArray(), searchColumns);
+        editTable.setAutoCreateRowSorter(true);
+        editTable.setFont(new java.awt.Font("Lato", 0, 12)); // NOI18N
+        editTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -569,9 +798,26 @@ public class Main extends javax.swing.JFrame {
 
             }
         ));
-        searchTable1.setToolTipText("");
-        searchTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(searchTable1);
+        editTable.setToolTipText("");
+        editTable.setRowHeight(20);
+        editTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(editTable);
+        editTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+
+            public void valueChanged(ListSelectionEvent event){
+                if (!event.getValueIsAdjusting() && editTable.getSelectedRow() != -1
+                    && editTable.getSelectedRowCount() == 1)
+                {
+                    Edit_edit.setEnabled(true);
+                    Edit_remove.setEnabled(true);
+                }
+                else{
+                    Edit_edit.setEnabled(false);
+                    Edit_remove.setEnabled(false);
+                }
+            }
+
+        });
 
         jLabel13.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel13.setText("Word Filter:");
@@ -579,77 +825,79 @@ public class Main extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Lato", 0, 18)); // NOI18N
         jLabel14.setText("Definition Filter:");
 
-        filterWord1.addActionListener(new java.awt.event.ActionListener() {
+        Edit_filterWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterWord1ActionPerformed(evt);
+                Edit_filterWordActionPerformed(evt);
             }
         });
 
-        filterDefinition1.addActionListener(new java.awt.event.ActionListener() {
+        Edit_filterDefinition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterDefinition1ActionPerformed(evt);
+                Edit_filterDefinitionActionPerformed(evt);
             }
         });
 
-        Search_search1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
-        Search_search1.setText("Search");
-        Search_search1.setPreferredSize(new java.awt.Dimension(77, 27));
-        Search_search1.addActionListener(new java.awt.event.ActionListener() {
+        Edit_search.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Edit_search.setText("Search");
+        Edit_search.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Search_search1ActionPerformed(evt);
+                Edit_searchActionPerformed(evt);
             }
         });
 
-        Search_search2.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
-        Search_search2.setText("Add");
-        Search_search2.setToolTipText("");
-        Search_search2.setPreferredSize(new java.awt.Dimension(77, 27));
-        Search_search2.addActionListener(new java.awt.event.ActionListener() {
+        Edit_add.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Edit_add.setText("Add");
+        Edit_add.setToolTipText("");
+        Edit_add.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Search_search2ActionPerformed(evt);
+                Edit_addActionPerformed(evt);
             }
         });
 
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
 
-        Search_search3.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
-        Search_search3.setText("Edit");
-        Search_search3.setToolTipText("");
-        Search_search3.setPreferredSize(new java.awt.Dimension(77, 27));
-        Search_search3.addActionListener(new java.awt.event.ActionListener() {
+        Edit_edit.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Edit_edit.setText("Edit");
+        Edit_edit.setToolTipText("");
+        Edit_edit.setEnabled(false);
+        Edit_edit.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Search_search3ActionPerformed(evt);
+                Edit_editActionPerformed(evt);
             }
         });
 
-        Search_search4.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
-        Search_search4.setText("Remove");
-        Search_search4.setToolTipText("");
-        Search_search4.setPreferredSize(new java.awt.Dimension(77, 27));
-        Search_search4.addActionListener(new java.awt.event.ActionListener() {
+        Edit_remove.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Edit_remove.setText("Remove");
+        Edit_remove.setToolTipText("");
+        Edit_remove.setEnabled(false);
+        Edit_remove.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Search_search4ActionPerformed(evt);
+                Edit_removeActionPerformed(evt);
             }
         });
 
-        Search_search5.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
-        Search_search5.setForeground(new java.awt.Color(255, 0, 0));
-        Search_search5.setText("Reset");
-        Search_search5.setToolTipText("");
-        Search_search5.setPreferredSize(new java.awt.Dimension(77, 27));
-        Search_search5.addActionListener(new java.awt.event.ActionListener() {
+        Edit_reset.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 18)); // NOI18N
+        Edit_reset.setForeground(new java.awt.Color(255, 0, 0));
+        Edit_reset.setText("Reset");
+        Edit_reset.setToolTipText("");
+        Edit_reset.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Search_search5ActionPerformed(evt);
+                Edit_resetActionPerformed(evt);
             }
         });
 
-        Search_search6.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
-        Search_search6.setText("Save");
-        Search_search6.setToolTipText("");
-        Search_search6.setPreferredSize(new java.awt.Dimension(77, 27));
-        Search_search6.addActionListener(new java.awt.event.ActionListener() {
+        Edit_save.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Edit_save.setText("Save");
+        Edit_save.setToolTipText("");
+        Edit_save.setPreferredSize(new java.awt.Dimension(77, 27));
+        Edit_save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Search_search6ActionPerformed(evt);
+                Edit_saveActionPerformed(evt);
             }
         });
 
@@ -665,24 +913,24 @@ public class Main extends javax.swing.JFrame {
                             .addGroup(EditCardLayout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addGap(5, 5, 5)
-                                .addComponent(filterWord1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Edit_filterWord, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(EditCardLayout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
-                                .addComponent(filterDefinition1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(Edit_filterDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(Search_search1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Edit_search, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Search_search2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Edit_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
-                    .addComponent(Search_search3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                    .addComponent(Search_search4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                    .addComponent(Search_search5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Edit_edit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                    .addComponent(Edit_remove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                    .addComponent(Edit_reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
-                    .addComponent(Search_search6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                    .addComponent(Edit_save, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EditCardLayout.setVerticalGroup(
@@ -695,28 +943,28 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(EditCardLayout.createSequentialGroup()
                         .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
-                            .addComponent(filterWord1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Edit_filterWord, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(filterDefinition1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(Search_search1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Edit_filterDefinition, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Edit_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(EditCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(EditCardLayout.createSequentialGroup()
-                        .addComponent(Search_search2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Edit_add, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Search_search3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Edit_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Search_search4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Edit_remove, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Search_search6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Edit_save, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Search_search5, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Edit_reset, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
@@ -754,16 +1002,15 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void filterWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterWordActionPerformed
-    }//GEN-LAST:event_filterWordActionPerformed
+    private void Search_filterWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_filterWordActionPerformed
+    }//GEN-LAST:event_Search_filterWordActionPerformed
 
-    private void filterDefinitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterDefinitionActionPerformed
-    }//GEN-LAST:event_filterDefinitionActionPerformed
+    private void Search_filterDefinitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_filterDefinitionActionPerformed
+    }//GEN-LAST:event_Search_filterDefinitionActionPerformed
 
     private void Search_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_searchActionPerformed
-
-        String w = filterWord.getText();
-        String d = filterDefinition.getText();
+        String w = Search_filterWord.getText();
+        String d = Search_filterDefinition.getText();
         history.add(w, d);
         HashSet<String> result = new HashSet<>();
 
@@ -774,14 +1021,11 @@ public class Main extends javax.swing.JFrame {
 
             if (!d.isBlank())
                 result.retainAll(dict.getWords(d));
-        } else {
-
-            if (!d.isBlank())
-                result.addAll(dict.getWords(d));
-            else {
-                updateSearchTable(dict.to2DArray());
-                return;
-            }
+        } else if (!d.isBlank())
+            result.addAll(dict.getWords(d));
+        else {
+            updateTable(searchTable, dict.to2DArray(), searchColumns);
+            return;
         }
 
         int size = 0;
@@ -797,12 +1041,11 @@ public class Main extends javax.swing.JFrame {
                 resultTable[i++][1] = definition;
             }
 
-        updateSearchTable(resultTable);
+        updateTable(searchTable, resultTable, searchColumns);
     }//GEN-LAST:event_Search_searchActionPerformed
 
     private void Search_viewHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_viewHistoryActionPerformed
-        // TODO add your handling code here:
-        updateHistoryTable(history.to2DArray());
+        updateTable(historyTable, history.to2DArray(), historyColumns);
         historyWindow.setVisible(true);
     }//GEN-LAST:event_Search_viewHistoryActionPerformed
 
@@ -816,7 +1059,11 @@ public class Main extends javax.swing.JFrame {
 
     private void btn_SearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SearchMousePressed
         cardLayout.show(Cards, "SearchCard");
-        updateSearchTable(dict.to2DArray());
+
+        Search_filterWord.setText("");
+        Search_filterDefinition.setText("");
+        updateTable(searchTable, dict.to2DArray(), searchColumns);
+
         setActive(btn_Search);
         setInactive(btn_Quiz);
         setInactive(btn_Edit);
@@ -832,10 +1079,14 @@ public class Main extends javax.swing.JFrame {
 
     private void btn_EditMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EditMousePressed
         cardLayout.show(Cards, "EditCard");
+
+        Edit_filterWord.setText("");
+        Edit_filterDefinition.setText("");
+        updateTable(editTable, dict.to2DArray(), searchColumns);
+
         setInactive(btn_Search);
         setInactive(btn_Quiz);
         setActive(btn_Edit);
-
     }//GEN-LAST:event_btn_EditMousePressed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -850,7 +1101,7 @@ public class Main extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE,
                     null,
                     options,
-                    options[0]
+                    options[2]
             );
             switch (confirm) {
                 case 0 ->
@@ -866,37 +1117,158 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
-    private void Search_search5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search5ActionPerformed
+    private void Edit_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_resetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Search_search5ActionPerformed
+    }//GEN-LAST:event_Edit_resetActionPerformed
 
-    private void Search_search4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search4ActionPerformed
+    private void Edit_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_removeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Search_search4ActionPerformed
+    }//GEN-LAST:event_Edit_removeActionPerformed
 
-    private void Search_search3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Search_search3ActionPerformed
+    String currentSelectedDefinition;
 
-    private void Search_search2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search2ActionPerformed
+    private void Edit_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_editActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Search_search2ActionPerformed
+        currentSelectedDefinition = (String) editTable.getValueAt(editTable.getSelectedRow(), 1);
 
-    private void Search_search1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Search_search1ActionPerformed
+        Edit_word.setText((String) editTable.getValueAt(editTable.getSelectedRow(), 0));
+        Edit_definition.setText(currentSelectedDefinition);
+        editWindow.setVisible(true);
+    }//GEN-LAST:event_Edit_editActionPerformed
 
-    private void filterDefinition1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterDefinition1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_filterDefinition1ActionPerformed
+    private void Edit_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_addActionPerformed
+        Add_definition.setText("");
+        addWindow.setVisible(true);
+    }//GEN-LAST:event_Edit_addActionPerformed
 
-    private void filterWord1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterWord1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_filterWord1ActionPerformed
+    private void Edit_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_searchActionPerformed
+        String w = Edit_filterWord.getText();
+        String d = Edit_filterDefinition.getText();
 
-    private void Search_search6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Search_search6ActionPerformed
+        HashSet<String> result = new HashSet<>();
+
+        if (!w.isBlank()) {
+            for (String word : dict.words.keySet())
+                if (word.contains(w))
+                    result.add(word);
+
+            if (!d.isBlank())
+                result.retainAll(dict.getWords(d));
+        } else if (!d.isBlank())
+            result.addAll(dict.getWords(d));
+        else {
+            updateTable(editTable, dict.to2DArray(), searchColumns);
+            return;
+        }
+
+        int size = 0;
+        if (!result.isEmpty())
+            for (String word : result)
+                size += dict.getDefinitions(word).size();
+
+        String[][] resultTable = new String[size][2];
+        int i = 0;
+        for (String word : result)
+            for (String definition : dict.getDefinitions(word)) {
+                resultTable[i][0] = word;
+                resultTable[i++][1] = definition;
+            }
+
+        updateTable(editTable, resultTable, searchColumns);
+    }//GEN-LAST:event_Edit_searchActionPerformed
+
+    private void Edit_filterDefinitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_filterDefinitionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Search_search6ActionPerformed
+    }//GEN-LAST:event_Edit_filterDefinitionActionPerformed
+
+    private void Edit_filterWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_filterWordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Edit_filterWordActionPerformed
+
+    private void Edit_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_saveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Edit_saveActionPerformed
+
+    private void Add_wordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_wordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Add_wordActionPerformed
+
+    private void Add_definitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_definitionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Add_definitionActionPerformed
+
+    private void Add_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_confirmActionPerformed
+        String w = Add_word.getText();
+        String d = Add_definition.getText();
+
+        if ("".equals(w))
+            JOptionPane.showMessageDialog(null, "Word must not be null.");
+        else if ("".equals(d))
+            JOptionPane.showMessageDialog(null, "Definition must not be null.");
+        else if (dict.words.containsKey(w)) {
+            String[] options = new String[]{"Overwrite", "Cancel", "Duplicate"};
+            int confirm = JOptionPane.showOptionDialog(
+                    null,
+                    "Key existed in dictionary, duplicate?",
+                    "Slang Dictionary",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    options,
+                    options[2]
+            );
+            switch (confirm) {
+                case 0 ->
+                    dict.overwrite(w, d);
+                case 1 -> {
+                    return;
+                }
+                case 2 ->
+                    dict.put(w, d);
+            }
+
+            Edit_search.getActionListeners()[0].actionPerformed(null);
+            addWindow.dispose();
+
+        } else {
+
+            dict.put(w, d);
+            Edit_search.getActionListeners()[0].actionPerformed(null);
+            addWindow.dispose();
+        }
+    }//GEN-LAST:event_Add_confirmActionPerformed
+
+    private void Add_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_cancelActionPerformed
+        addWindow.dispose();
+    }//GEN-LAST:event_Add_cancelActionPerformed
+
+    private void Edit_wordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_wordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Edit_wordActionPerformed
+
+    private void Edit_definitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_definitionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Edit_definitionActionPerformed
+
+    private void Edit_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_confirmActionPerformed
+        String w = Edit_word.getText();
+        String d = Edit_definition.getText();
+
+        HashSet<String> ws = dict.getDefinitions(w);
+        if (d.equals(currentSelectedDefinition))
+            editWindow.dispose();
+        else if (ws.contains(d))
+            JOptionPane.showMessageDialog(null, "This definition already existed.");
+        else {
+            dict.replace(w, currentSelectedDefinition, d);
+            Edit_search.getActionListeners()[0].actionPerformed(null);
+            editWindow.dispose();
+        }
+    }//GEN-LAST:event_Edit_confirmActionPerformed
+
+    private void Edit_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_cancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Edit_cancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -908,11 +1280,12 @@ public class Main extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
+            }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -928,33 +1301,42 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Main().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Add_cancel;
+    private javax.swing.JButton Add_confirm;
+    private javax.swing.JTextField Add_definition;
+    private javax.swing.JTextField Add_word;
     private javax.swing.JPanel Cards;
     private javax.swing.JPanel EditCard;
+    private javax.swing.JButton Edit_add;
+    private javax.swing.JButton Edit_cancel;
+    private javax.swing.JButton Edit_confirm;
+    private javax.swing.JTextField Edit_definition;
+    private javax.swing.JButton Edit_edit;
+    private javax.swing.JTextField Edit_filterDefinition;
+    private javax.swing.JTextField Edit_filterWord;
+    private javax.swing.JButton Edit_remove;
+    private javax.swing.JButton Edit_reset;
+    private javax.swing.JButton Edit_save;
+    private javax.swing.JButton Edit_search;
+    private javax.swing.JTextField Edit_word;
     private javax.swing.JPanel QuizCard;
     private javax.swing.JPanel SearchCard;
+    private javax.swing.JTextField Search_filterDefinition;
+    private javax.swing.JTextField Search_filterWord;
     private javax.swing.JButton Search_search;
-    private javax.swing.JButton Search_search1;
-    private javax.swing.JButton Search_search2;
-    private javax.swing.JButton Search_search3;
-    private javax.swing.JButton Search_search4;
-    private javax.swing.JButton Search_search5;
-    private javax.swing.JButton Search_search6;
     private javax.swing.JButton Search_viewHistory;
+    private javax.swing.JFrame addWindow;
     private javax.swing.JPanel btn_Edit;
     private javax.swing.JPanel btn_Quiz;
     private javax.swing.JPanel btn_Search;
-    private javax.swing.JTextField filterDefinition;
-    private javax.swing.JTextField filterDefinition1;
-    private javax.swing.JTextField filterWord;
-    private javax.swing.JTextField filterWord1;
+    private javax.swing.JTable editTable;
+    private javax.swing.JFrame editWindow;
     private javax.swing.JTable historyTable;
     private javax.swing.JFrame historyWindow;
     private javax.swing.JLabel jLabel1;
@@ -966,7 +1348,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -977,6 +1365,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -985,6 +1375,5 @@ public class Main extends javax.swing.JFrame {
     private java.awt.Label label1;
     private java.awt.Label label2;
     private javax.swing.JTable searchTable;
-    private javax.swing.JTable searchTable1;
     // End of variables declaration//GEN-END:variables
 }
