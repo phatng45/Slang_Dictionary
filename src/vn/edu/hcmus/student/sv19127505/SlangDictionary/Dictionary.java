@@ -90,6 +90,8 @@ public class Dictionary {
     public void replace(String word, String oldDef, String newDef){
         words.get(word).add(newDef);
         words.remove(word, oldDef);
+        
+        isSaved = false;
     }
     
 

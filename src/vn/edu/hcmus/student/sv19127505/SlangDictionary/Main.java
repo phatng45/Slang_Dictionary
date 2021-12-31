@@ -1118,11 +1118,52 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void Edit_resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_resetActionPerformed
-        // TODO add your handling code here:
+        String[] options = new String[]{"Cancel", "Reset Anyways"};
+        int confirm = JOptionPane.showOptionDialog(
+                null,
+                "This action is not recommended, still reset?",
+                "Slang Dictionary",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+        switch (confirm) {
+            case 0 -> {
+                return;
+            }
+            case 1 ->
+                dict.reset("slang.txt");
+        }
+
+        Edit_search.getActionListeners()[0].actionPerformed(null);
     }//GEN-LAST:event_Edit_resetActionPerformed
 
     private void Edit_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_removeActionPerformed
-        // TODO add your handling code here:
+        String w = (String) editTable.getValueAt(editTable.getSelectedRow(), 0);
+        String d = (String) editTable.getValueAt(editTable.getSelectedRow(), 1);
+
+        String[] options = new String[]{"Cancel", "Remove"};
+        int confirm = JOptionPane.showOptionDialog(
+                null,
+                "Remove " + w + "?",
+                "Slang Dictionary",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+        switch (confirm) {
+            case 0 -> {
+                return;
+            }
+            case 1 ->
+                dict.remove(w, d);
+        }
+
+        Edit_search.getActionListeners()[0].actionPerformed(null);
     }//GEN-LAST:event_Edit_removeActionPerformed
 
     String currentSelectedDefinition;
@@ -1186,7 +1227,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_Edit_filterWordActionPerformed
 
     private void Edit_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_saveActionPerformed
-        // TODO add your handling code here:
+        dict.save("data/dict.ser");
+        JOptionPane.showMessageDialog(null, "Saved", "Slang Dictionary", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_Edit_saveActionPerformed
 
     private void Add_wordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_wordActionPerformed
@@ -1267,7 +1309,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_Edit_confirmActionPerformed
 
     private void Edit_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_cancelActionPerformed
-        // TODO add your handling code here:
+        editWindow.dispose();
     }//GEN-LAST:event_Edit_cancelActionPerformed
 
     /**
