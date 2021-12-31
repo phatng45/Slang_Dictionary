@@ -158,7 +158,8 @@ public class Main extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         QuizGameCard = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
         EditCard = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -937,18 +938,13 @@ public class Main extends javax.swing.JFrame {
         jLabel28.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
         jLabel28.setText("Quiz");
 
-        jPanel9.setBackground(new java.awt.Color(255, 153, 51));
+        jLabel32.setFont(new java.awt.Font("Lato", 0, 36)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setText("Question");
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabel33.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel33.setText("is the meaning of ... ?");
 
         javax.swing.GroupLayout QuizGameCardLayout = new javax.swing.GroupLayout(QuizGameCard);
         QuizGameCard.setLayout(QuizGameCardLayout);
@@ -960,18 +956,23 @@ public class Main extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(QuizGameCardLayout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(QuizGameCardLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         QuizGameCardLayout.setVerticalGroup(
             QuizGameCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(QuizGameCardLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(jLabel32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addContainerGap(425, Short.MAX_VALUE))
         );
 
         Cards.add(QuizGameCard, "QuizGameCard");
@@ -1634,6 +1635,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1648,7 +1651,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
