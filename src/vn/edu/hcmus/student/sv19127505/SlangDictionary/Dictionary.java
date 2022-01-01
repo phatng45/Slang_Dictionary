@@ -123,7 +123,6 @@ public class Dictionary {
         } while (!";:/.^(*\\<=>0123458ABCDEFGHIJKLMNOPQRSTUVXYZW".contains(firstChar));
 
         res.add(firstRes);
-        System.out.println(firstChar);
         String next;
         while (res.size() < 4) {
             if (it.hasNext())

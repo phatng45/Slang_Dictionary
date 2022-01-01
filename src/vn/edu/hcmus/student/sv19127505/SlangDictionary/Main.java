@@ -69,6 +69,9 @@ public class Main extends javax.swing.JFrame {
             System.out.println(dict.reset("slang.txt").toUpperCase());
         }
         
+        for(int i =0;i<100;++i)
+            System.out.println(dict.randomWordMode());
+        
         status = history.load("data/history.ser");
         if (!"".equals(status)) {
             System.out.println(status);
