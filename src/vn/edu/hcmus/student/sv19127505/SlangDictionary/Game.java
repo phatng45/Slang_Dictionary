@@ -61,6 +61,7 @@ public class Game extends Thread implements ActionListener {
 
         while (true) {
             t = 100;
+            chosenAnswer = -1;
             query = dict.randomForQuiz(GameMode);
             a.setText(query.get(0));
             b.setText(query.get(1));

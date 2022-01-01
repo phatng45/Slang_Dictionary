@@ -24,14 +24,18 @@ public class Highscore {
 
     public Highscore() {
         hs = new ArrayList<>();
+        hs.add(0);
+        hs.add(0);
+        hs.add(0);
+        hs.add(0);
+        hs.add(0);
     }
 
     public void add(int score) {
         hs.add(score);
         Collections.sort(hs);
         Collections.reverse(hs);
-        if(hs.size() == 6)
-            hs.remove(5);
+        hs.remove(5);
     }
 
     public String save(String filepath) {

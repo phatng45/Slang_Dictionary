@@ -28,54 +28,62 @@ public class Main extends javax.swing.JFrame {
     
     CardLayout cardLayout;
     
-    
     boolean inGame = false;
-
+    
     final String[] searchColumns = {"Word", "Definition"};
     final String[] historyColumns = {"Word", "Definition", "Time"};
-
+    
     private void updateTable(JTable table, String[][] tableContent, String[] columns) {
         table.setModel(new AbstractTableModel() {
-
+            
             @Override
             public int getRowCount() {
                 return tableContent.length;
             }
-
+            
             @Override
             public int getColumnCount() {
                 return columns.length;
             }
-
+            
             @Override
             public Object getValueAt(int row, int col) {
                 return tableContent[row][col];
             }
-
+            
             @Override
             public String getColumnName(int index) {
                 return columns[index];
             }
         }
         );
-
+        
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
         table.getColumnModel().getColumn(0).setMinWidth(100);
         table.getColumnModel().getColumn(0).setMaxWidth(100);
     }
-
+    
+    private void updateHighscore(){
+        Quiz_score1.setText("" + hs.hs.get(0));
+        Quiz_score2.setText("" + hs.hs.get(1));
+        Quiz_score3.setText("" + hs.hs.get(2));
+        Quiz_score4.setText("" + hs.hs.get(3));
+        Quiz_score5.setText("" + hs.hs.get(4));
+    }
+    
+    
     public Main() {
         dict = new Dictionary();
         history = new DictionaryHistory();
         hs = new Highscore();
-
+        
         String status = dict.load("data/dict.ser");
         if (!"".equals(status)) {
             System.out.println(status);
             System.out.println("Generating new dictionary... It is recommended to not change the data folder in order to have a faster accessibility next time you run the app.");
             System.out.println(dict.reset("slang.txt").toUpperCase());
         }
-
+        
         status = history.load("data/history.ser");
         if (!"".equals(status)) {
             System.out.println(status);
@@ -83,9 +91,10 @@ public class Main extends javax.swing.JFrame {
         }
         
         hs.load("data/highscore.ser");
-
+        
         initComponents();
-
+        
+        updateHighscore();
         updateTable(searchTable, dict.to2DArray(), searchColumns);
         cardLayout = (CardLayout) (Cards.getLayout());
     }
@@ -168,6 +177,16 @@ public class Main extends javax.swing.JFrame {
         Quiz_cooldown = new javax.swing.JLabel();
         QuizCard = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        Quiz_score1 = new javax.swing.JLabel();
+        Quiz_score2 = new javax.swing.JLabel();
+        Quiz_score3 = new javax.swing.JLabel();
+        Quiz_score4 = new javax.swing.JLabel();
+        Quiz_score5 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         Quiz_wordMode = new javax.swing.JButton();
@@ -771,7 +790,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(Search_viewHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         SearchCardLayout.setVerticalGroup(
             SearchCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -951,7 +970,7 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(QuizGameCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(Quiz_b, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(Quiz_d, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         QuizGameCardLayout.setVerticalGroup(
             QuizGameCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -997,15 +1016,110 @@ public class Main extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Highscore", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lato", 1, 24))); // NOI18N
 
+        jLabel37.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+        jLabel37.setForeground(new java.awt.Color(255, 204, 51));
+        jLabel37.setText("#1");
+        jLabel37.setToolTipText("");
+
+        jLabel39.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(204, 102, 0));
+        jLabel39.setText("#3");
+        jLabel39.setToolTipText("");
+
+        jLabel40.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+        jLabel40.setText("#4");
+        jLabel40.setToolTipText("");
+
+        jLabel41.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+        jLabel41.setText("#5");
+        jLabel41.setToolTipText("");
+
+        Quiz_score1.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        Quiz_score1.setForeground(new java.awt.Color(255, 204, 51));
+        Quiz_score1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Quiz_score1.setText("0");
+        Quiz_score1.setToolTipText("");
+
+        Quiz_score2.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        Quiz_score2.setForeground(new java.awt.Color(153, 153, 153));
+        Quiz_score2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Quiz_score2.setText("0");
+        Quiz_score2.setToolTipText("");
+
+        Quiz_score3.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        Quiz_score3.setForeground(new java.awt.Color(204, 102, 0));
+        Quiz_score3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Quiz_score3.setText("0");
+        Quiz_score3.setToolTipText("");
+
+        Quiz_score4.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        Quiz_score4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Quiz_score4.setText("0");
+        Quiz_score4.setToolTipText("");
+
+        Quiz_score5.setFont(new java.awt.Font("Lato", 0, 24)); // NOI18N
+        Quiz_score5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Quiz_score5.setText("0");
+        Quiz_score5.setToolTipText("");
+
+        jLabel38.setFont(new java.awt.Font("Lato", 1, 24)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel38.setText("#2");
+        jLabel38.setToolTipText("");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 161, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Quiz_score1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Quiz_score5, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel38)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Quiz_score2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Quiz_score3, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Quiz_score4, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(Quiz_score1))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Quiz_score2)
+                    .addComponent(jLabel38))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39)
+                    .addComponent(Quiz_score3))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel40)
+                    .addComponent(Quiz_score4))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel41)
+                    .addComponent(Quiz_score5))
+                .addContainerGap())
         );
 
         jLabel24.setFont(new java.awt.Font("Lato", 1, 48)); // NOI18N
@@ -1128,12 +1242,12 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(QuizCardLayout.createSequentialGroup()
                     .addGap(29, 29, 29)
                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(476, Short.MAX_VALUE)))
+                    .addContainerGap(371, Short.MAX_VALUE)))
         );
         QuizCardLayout.setVerticalGroup(
             QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1144,7 +1258,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(QuizCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(QuizCardLayout.createSequentialGroup()
                     .addGap(29, 29, 29)
@@ -1208,12 +1322,12 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(GameOverCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Quiz_wordMode1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(GameOver_score, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(149, Short.MAX_VALUE))
             .addGroup(GameOverCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(GameOverCardLayout.createSequentialGroup()
                     .addGap(39, 39, 39)
                     .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(466, Short.MAX_VALUE)))
+                    .addContainerGap(361, Short.MAX_VALUE)))
         );
         GameOverCardLayout.setVerticalGroup(
             GameOverCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1436,7 +1550,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Cards, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Cards, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1471,12 +1585,12 @@ public class Main extends javax.swing.JFrame {
         String d = Search_filterDefinition.getText();
         history.add(w, d);
         HashSet<String> result = new HashSet<>();
-
+        
         if (!w.isBlank()) {
             for (String word : dict.words.keySet())
                 if (word.contains(w))
                     result.add(word);
-
+            
             if (!d.isBlank())
                 result.retainAll(dict.getWords(d));
         } else if (!d.isBlank())
@@ -1485,12 +1599,12 @@ public class Main extends javax.swing.JFrame {
             updateTable(searchTable, dict.to2DArray(), searchColumns);
             return;
         }
-
+        
         int size = 0;
         if (!result.isEmpty())
             for (String word : result)
                 size += dict.getDefinitions(word).size();
-
+        
         String[][] resultTable = new String[size][2];
         int i = 0;
         for (String word : result)
@@ -1498,7 +1612,7 @@ public class Main extends javax.swing.JFrame {
                 resultTable[i][0] = word;
                 resultTable[i++][1] = definition;
             }
-
+        
         updateTable(searchTable, resultTable, searchColumns);
     }//GEN-LAST:event_Search_searchActionPerformed
 
@@ -1506,11 +1620,11 @@ public class Main extends javax.swing.JFrame {
         updateTable(historyTable, history.to2DArray(), historyColumns);
         historyWindow.setVisible(true);
     }//GEN-LAST:event_Search_viewHistoryActionPerformed
-
+    
     private void setActive(JPanel panel) {
         panel.setBackground(new Color(131, 224, 255));
     }
-
+    
     private void setInactive(JPanel panel) {
         panel.setBackground(new Color(51, 204, 255));
     }
@@ -1518,13 +1632,13 @@ public class Main extends javax.swing.JFrame {
     private void btn_SearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_SearchMousePressed
         if (inGame == true)
             return;
-
+        
         cardLayout.show(Cards, "SearchCard");
-
+        
         Search_filterWord.setText("");
         Search_filterDefinition.setText("");
         updateTable(searchTable, dict.to2DArray(), searchColumns);
-
+        
         setActive(btn_Search);
         setInactive(btn_Quiz);
         setInactive(btn_Edit);
@@ -1533,7 +1647,7 @@ public class Main extends javax.swing.JFrame {
     private void btn_QuizMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_QuizMousePressed
         if (inGame == true)
             return;
-
+        
         cardLayout.show(Cards, "QuizCard");
         setInactive(btn_Search);
         setActive(btn_Quiz);
@@ -1544,13 +1658,13 @@ public class Main extends javax.swing.JFrame {
     private void btn_EditMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_EditMousePressed
         if (inGame == true)
             return;
-
+        
         cardLayout.show(Cards, "EditCard");
-
+        
         Edit_filterWord.setText("");
         Edit_filterDefinition.setText("");
         updateTable(editTable, dict.to2DArray(), searchColumns);
-
+        
         setInactive(btn_Search);
         setInactive(btn_Quiz);
         setActive(btn_Edit);
@@ -1604,14 +1718,14 @@ public class Main extends javax.swing.JFrame {
             case 1 ->
                 dict.reset("slang.txt");
         }
-
+        
         Edit_search.getActionListeners()[0].actionPerformed(null);
     }//GEN-LAST:event_Edit_resetActionPerformed
 
     private void Edit_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_removeActionPerformed
         String w = (String) editTable.getValueAt(editTable.getSelectedRow(), 0);
         String d = (String) editTable.getValueAt(editTable.getSelectedRow(), 1);
-
+        
         String[] options = new String[]{"Cancel", "Remove"};
         int confirm = JOptionPane.showOptionDialog(
                 null,
@@ -1630,16 +1744,16 @@ public class Main extends javax.swing.JFrame {
             case 1 ->
                 dict.removeDefinition(w, d);
         }
-
+        
         Edit_search.getActionListeners()[0].actionPerformed(null);
     }//GEN-LAST:event_Edit_removeActionPerformed
-
+    
     String currentSelectedDefinition;
 
     private void Edit_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_editActionPerformed
         // TODO add your handling code here:
         currentSelectedDefinition = (String) editTable.getValueAt(editTable.getSelectedRow(), 1);
-
+        
         Edit_word.setText((String) editTable.getValueAt(editTable.getSelectedRow(), 0));
         Edit_definition.setText(currentSelectedDefinition);
         editWindow.setVisible(true);
@@ -1653,14 +1767,14 @@ public class Main extends javax.swing.JFrame {
     private void Edit_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_searchActionPerformed
         String w = Edit_filterWord.getText();
         String d = Edit_filterDefinition.getText();
-
+        
         HashSet<String> result = new HashSet<>();
-
+        
         if (!w.isBlank()) {
             for (String word : dict.words.keySet())
                 if (word.contains(w))
                     result.add(word);
-
+            
             if (!d.isBlank())
                 result.retainAll(dict.getWords(d));
         } else if (!d.isBlank())
@@ -1669,12 +1783,12 @@ public class Main extends javax.swing.JFrame {
             updateTable(editTable, dict.to2DArray(), searchColumns);
             return;
         }
-
+        
         int size = 0;
         if (!result.isEmpty())
             for (String word : result)
                 size += dict.getDefinitions(word).size();
-
+        
         String[][] resultTable = new String[size][2];
         int i = 0;
         for (String word : result)
@@ -1682,7 +1796,7 @@ public class Main extends javax.swing.JFrame {
                 resultTable[i][0] = word;
                 resultTable[i++][1] = definition;
             }
-
+        
         updateTable(editTable, resultTable, searchColumns);
     }//GEN-LAST:event_Edit_searchActionPerformed
 
@@ -1710,7 +1824,7 @@ public class Main extends javax.swing.JFrame {
     private void Add_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Add_confirmActionPerformed
         String w = Add_word.getText();
         String d = Add_definition.getText();
-
+        
         if ("".equals(w))
             JOptionPane.showMessageDialog(null, "Word must not be null.");
         else if ("".equals(d))
@@ -1736,12 +1850,12 @@ public class Main extends javax.swing.JFrame {
                 case 2 ->
                     dict.put(w, d);
             }
-
+            
             Edit_search.getActionListeners()[0].actionPerformed(null);
             addWindow.dispose();
-
+            
         } else {
-
+            
             dict.put(w, d);
             Edit_search.getActionListeners()[0].actionPerformed(null);
             addWindow.dispose();
@@ -1763,7 +1877,7 @@ public class Main extends javax.swing.JFrame {
     private void Edit_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Edit_confirmActionPerformed
         String w = Edit_word.getText();
         String d = Edit_definition.getText();
-
+        
         HashSet<String> ws = dict.getDefinitions(w);
         if (d.equals(currentSelectedDefinition))
             editWindow.dispose();
@@ -1811,18 +1925,18 @@ public class Main extends javax.swing.JFrame {
     private void Quiz_wordMode2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Quiz_wordMode2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Quiz_wordMode2ActionPerformed
-
+    
     private void startGame(int GameMode) {
         cardLayout.show(Cards, "QuizGameCard");
 
         // Game started, disable buttons
         inGame = true;
-
-        Game game = new Game(GameMode, 
-                Quiz_a, Quiz_b, Quiz_c, Quiz_d, 
-                Quiz_question, Quiz_statement, Quiz_cooldown, Quiz_score, Quiz_heart1, 
+        
+        Game game = new Game(GameMode,
+                Quiz_a, Quiz_b, Quiz_c, Quiz_d,
+                Quiz_question, Quiz_statement, Quiz_cooldown, Quiz_score, Quiz_heart1,
                 dict);
-
+        
         new Thread() {
             @Override
             public void run() {
@@ -1830,12 +1944,15 @@ public class Main extends javax.swing.JFrame {
 
                 // Game finished, enable buttons back
                 inGame = false;
+                hs.add(Integer.parseInt(Quiz_score.getText()));
+                updateHighscore();
+                
                 
                 GameOver_score.setText(Quiz_score.getText());
                 cardLayout.show(Cards, "GameOverCard");
             }
         }.start();
-
+        
     }
 
     /**
@@ -1907,6 +2024,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel Quiz_heart1;
     private javax.swing.JLabel Quiz_question;
     private javax.swing.JLabel Quiz_score;
+    private javax.swing.JLabel Quiz_score1;
+    private javax.swing.JLabel Quiz_score2;
+    private javax.swing.JLabel Quiz_score3;
+    private javax.swing.JLabel Quiz_score4;
+    private javax.swing.JLabel Quiz_score5;
     private javax.swing.JLabel Quiz_statement;
     private javax.swing.JButton Quiz_wordMode;
     private javax.swing.JButton Quiz_wordMode1;
@@ -1954,7 +2076,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
