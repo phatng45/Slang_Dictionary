@@ -61,6 +61,11 @@ public class Dictionary {
         return wordsToGet;
     }
 
+    /**
+     * Remove word will remove the entire word along with all of its definitions
+     * @param word
+     * @return 
+     */
     private HashSet<String> removeWord(String word) {
         HashSet<String> definitionsToRemove = words.remove(word);
         for (String definition : definitionsToRemove)
@@ -71,14 +76,19 @@ public class Dictionary {
         return definitionsToRemove;
     }
 
-    public void remove(String word, String definition) {
+    /**
+     * Remove definition will not remove the word unless it has no element left
+     * @param word
+     * @param definition 
+     */
+    public void removeDefinition(String word, String definition) {
         String[] partialsToRemove = definition.toLowerCase().split(" ");
 
         for (String partial : partialsToRemove) {
             partials.get(partial).remove(word);
         }
 
-        this.getDefinitions(word).remove(definition);
+        getDefinitions(word).remove(definition);
         if (this.getDefinitions(word).isEmpty()) {
             words.remove(word);
         }
@@ -92,10 +102,8 @@ public class Dictionary {
     }
 
     public void replace(String word, String oldDef, String newDef) {
-        words.get(word).add(newDef);
-        words.remove(word, oldDef);
-
-        isSaved = false;
+        put(word, newDef);
+        removeDefinition(word, oldDef);
     }
 
     public ArrayList<String> random4Words() {

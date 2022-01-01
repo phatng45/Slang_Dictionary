@@ -1530,7 +1530,7 @@ public class Main extends javax.swing.JFrame {
                 return;
             }
             case 1 ->
-                dict.remove(w, d);
+                dict.removeDefinition(w, d);
         }
 
         Edit_search.getActionListeners()[0].actionPerformed(null);
