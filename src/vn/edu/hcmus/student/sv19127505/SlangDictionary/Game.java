@@ -25,11 +25,8 @@ public class Game extends Thread implements ActionListener {
     JLabel question, statement, scorelabel, cooldown, heartlabel;
     Dictionary dict;
     
-    boolean over = false;
     int t = 100;
-//    Cooldown cd;
-//
-//    boolean corrected = false;
+    boolean bonus;
 
     public Game(int GameMode,
             JButton a, JButton b, JButton c, JButton d,
@@ -61,11 +58,8 @@ public class Game extends Thread implements ActionListener {
         b.addActionListener(this);
         c.addActionListener(this);
         d.addActionListener(this);
-//
-//        cd = new Cooldown(cooldown);
 
-        while (heart > 0) {
-//            corrected = false;
+        while (true) {
             t = 100;
             query = dict.randomForQuiz(GameMode);
             a.setText(query.get(0));
@@ -75,7 +69,6 @@ public class Game extends Thread implements ActionListener {
 
             question.setText(query.get(4));
             correctAnswer = Integer.parseInt(query.get(5));
-
             try {
                 cooldown.setText("5");
                 for (int i = 0; i < 10; ++i)
@@ -97,7 +90,7 @@ public class Game extends Thread implements ActionListener {
             }
 
             if (chosenAnswer == correctAnswer) {
-                if (Integer.parseInt(cooldown.getText()) > 3)
+                if (bonus)
                     score += 30;
                 else
                     score += 10;
@@ -107,14 +100,10 @@ public class Game extends Thread implements ActionListener {
                 if (heart == 1)
                     heartlabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hearte.png")));
                 if (heart == 0){
-                    over = true;
-                    System.out.println("break-ed");
                     break;
                 }
             }
         }
-        
-        System.out.println("exited main loop");
     }
 
     @Override
@@ -127,28 +116,9 @@ public class Game extends Thread implements ActionListener {
             chosenAnswer = 2;
         else if (e.getSource() == d)
             chosenAnswer = 3;
+        
+        bonus = Integer.parseInt(cooldown.getText()) > 3;
+        
         t = 0;
     }
 }
-
-//class Cooldown extends Thread {
-//
-//    JLabel cooldown;
-//
-//    public Cooldown(JLabel cooldown) {
-//        this.cooldown = cooldown;
-//    }
-//
-//    public void run() {
-//        try {
-//            cooldown.setText("3");
-//            Thread.sleep(1000);
-//            cooldown.setText("2");
-//            Thread.sleep(1000);
-//            cooldown.setText("1");
-//            Thread.sleep(1000);
-//            cooldown.setText("0");
-//        } catch (InterruptedException e) {
-//        }
-//    }
-//}
