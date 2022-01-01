@@ -14,6 +14,8 @@ public class Dictionary {
     HashMap<String, HashSet<String>> partials = new HashMap<>();
     boolean isSaved = true;
 
+    Random r = new Random();
+
     public void put(String newWord, String newDefinition) {
         if (!words.containsKey(newWord)) {
             words.put(newWord, new HashSet<>());
@@ -96,78 +98,76 @@ public class Dictionary {
         isSaved = false;
     }
 
-//    public void overwrite(String word, String[] newDefinitions) {
-//        removeWord(word);
-//        put(word, newDefinitions);
-//    
-    /**
-     *
-     * @return an array, in which: 1st ~ 4th: 4 definitions (randomized) 5th:
-     * the word 6th: the index of the correct definition to the word
-     */
-    public ArrayList<Object> randomWord() {
-        // init Random
-        Random r = new Random();
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        // REWORKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-        
-        // get the center index
-        int center = r.nextInt(partials.size());
+    public ArrayList<String> random4Words() {
+        ArrayList<String> res = new ArrayList<>();
+        Iterator<String> it;
+        String firstChar;
+        String firstRes;
 
-        HashSet<Integer> indexes = new HashSet<>();
-
-        // get a set of indexes with +- 15 around the center
-        while (indexes.size() < 5) {
-            indexes.add(center + (r.nextBoolean() ? 1 : -1) * r.nextInt(5));
-        }
-
-        // get the iterator
-        Iterator<String> it = partials.keySet().iterator();
-        ArrayList<Object> res = new ArrayList<>();
-
-        // loop through the partials keySet
-        for (int i = 0; i < Collections.max(indexes); i++)
-            // if the current i matches one of the indexes
-            if (indexes.contains(i)) {
-                // add a random word gotten from the partials
-                Object[] ws = partials.get(it.next()).toArray();
-                res.add(ws[r.nextInt(ws.length)]);
-            } else
+        do {
+            it = words.keySet().iterator();
+            int index = r.nextInt(words.size());
+            for (int i = 0; i < index - 1; ++i)
                 it.next();
 
-        // get a random index as the answer
-        int answerIndex = r.nextInt(res.size());
-        
-        // add a copy of answer and the index
-        res.add(res.get(answerIndex));
-        res.add(answerIndex);
+            firstRes = it.next();
+            firstChar = firstRes.substring(0, 1);
+        } while (!";:/.^(*\\<=>0123458ABCDEFGHIJKLMNOPQRSTUVXYZW".contains(firstChar));
 
-        // loop through the first 4 results
-        for (int i = 0; i < 4; ++i) {
-            // transform each word to one of its definitions
-            Object[] defs = getDefinitions((String) res.get(i)).toArray();
-            res.set(i, defs[r.nextInt(defs.length)]);
+        res.add(firstRes);
+        System.out.println(firstChar);
+        String next;
+        while (res.size() < 4) {
+            if (it.hasNext())
+                next = it.next();
+            else {
+                it = words.keySet().iterator();
+                next = it.next();
+            }
+
+            if (next.startsWith(firstChar))
+                res.add(next);
         }
         
         return res;
     }
 
-    public String randomDefinitions() {
-        HashSet<String> word = words.get(randomWord());
-        int index = (new Random()).nextInt(word.size());
-        Iterator<String> it = word.iterator();
+    public ArrayList<String> randomDefinitionMode() {
+        // init Random
 
-        for (int i = 0; i < index - 1; i++)
-            it.next();
+        ArrayList<String> res = random4Words();
 
-        return it.next();
+        int ans = r.nextInt(res.size());
+        res.add(res.get(ans));
+        res.add("" + ans);
+
+        for (int i = 0; i < 4; ++i) {
+            String[] ds = getDefinitions(res.get(i)).toArray(new String[0]);
+            res.set(i, ds[r.nextInt(ds.length)]);
+        }
+
+        return res;
+    }
+
+    /**
+     *
+     * @return an array, in which: 
+     * 1st ~ 4th: 4 definitions (randomized) 
+     * 5th: the word 
+     * 6th: the index of the correct definition to the word
+     */
+    public ArrayList<String> randomWordMode() {
+
+        ArrayList<String> res = random4Words();
+
+        int ans = r.nextInt(res.size());
+        res.add(res.get(ans));
+        res.add("" + ans);
+
+        String[] ds = getDefinitions(res.get(4)).toArray(new String[0]);
+        res.set(4, ds[r.nextInt(ds.length)]);
+
+        return res;
     }
 
     public String reset(String filepath) {
@@ -251,7 +251,7 @@ public class Dictionary {
         String[][] a = new String[words.values().stream().mapToInt(HashSet::size).sum()][2];
         int i = 0;
         for (String word : words.keySet())
-            for (String definition : this.getDefinitions(word)) {
+            for (String definition : getDefinitions(word)) {
                 a[i][0] = word;
                 a[i++][1] = definition;
             }
