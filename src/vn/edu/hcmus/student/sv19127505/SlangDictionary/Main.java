@@ -68,10 +68,7 @@ public class Main extends javax.swing.JFrame {
             System.out.println("Generating new dictionary... It is recommended to not change the data folder in order to have a faster accessibility next time you run the app.");
             System.out.println(dict.reset("slang.txt").toUpperCase());
         }
-        
-        for(int i =0;i<100;++i)
-            System.out.println(dict.randomWordMode());
-        
+
         status = history.load("data/history.ser");
         if (!"".equals(status)) {
             System.out.println(status);
@@ -798,7 +795,7 @@ public class Main extends javax.swing.JFrame {
         Quiz_statement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Quiz_statement.setText("is the meaning of ... ?");
 
-        Quiz_a.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Quiz_a.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         Quiz_a.setText("A");
         Quiz_a.setPreferredSize(new java.awt.Dimension(77, 27));
         Quiz_a.addActionListener(new java.awt.event.ActionListener() {
@@ -807,7 +804,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        Quiz_b.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Quiz_b.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         Quiz_b.setText("B");
         Quiz_b.setPreferredSize(new java.awt.Dimension(77, 27));
         Quiz_b.addActionListener(new java.awt.event.ActionListener() {
@@ -816,7 +813,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        Quiz_c.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Quiz_c.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         Quiz_c.setText("C");
         Quiz_c.setPreferredSize(new java.awt.Dimension(77, 27));
         Quiz_c.addActionListener(new java.awt.event.ActionListener() {
@@ -825,7 +822,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        Quiz_d.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 18)); // NOI18N
+        Quiz_d.setFont(new java.awt.Font("Microsoft YaHei UI Light", 0, 14)); // NOI18N
         Quiz_d.setText("D");
         Quiz_d.setPreferredSize(new java.awt.Dimension(77, 27));
         Quiz_d.addActionListener(new java.awt.event.ActionListener() {
@@ -956,14 +953,14 @@ public class Main extends javax.swing.JFrame {
                         .addGap(0, 0, 0)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(QuizGameCardLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel34))
+                    .addGroup(QuizGameCardLayout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addGroup(QuizGameCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel35)
-                            .addComponent(Quiz_cooldown, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(QuizGameCardLayout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel34)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Quiz_cooldown, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(Quiz_question)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Quiz_statement)
@@ -1715,10 +1712,12 @@ public class Main extends javax.swing.JFrame {
         // Game started, disable buttons
         inGame = true;
 
-        Game game = new Game(GameMode);
+        Game game = new Game(GameMode, Quiz_a, Quiz_b, Quiz_c, Quiz_d, Quiz_question, Quiz_statement, Quiz_cooldown, Quiz_score, Quiz_heart1, dict);
 
-        if (game.heart == 0)
-            inGame = false;
+        while(game.isAlive());
+        
+        inGame = false;
+        
     }
 
     /**

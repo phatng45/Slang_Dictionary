@@ -2,7 +2,6 @@ package vn.edu.hcmus.student.sv19127505.SlangDictionary;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -63,8 +62,9 @@ public class Dictionary {
 
     /**
      * Remove word will remove the entire word along with all of its definitions
+     *
      * @param word
-     * @return 
+     * @return
      */
     private HashSet<String> removeWord(String word) {
         HashSet<String> definitionsToRemove = words.remove(word);
@@ -78,8 +78,9 @@ public class Dictionary {
 
     /**
      * Remove definition will not remove the word unless it has no element left
+     *
      * @param word
-     * @param definition 
+     * @param definition
      */
     public void removeDefinition(String word, String definition) {
         String[] partialsToRemove = definition.toLowerCase().split(" ");
@@ -135,35 +136,17 @@ public class Dictionary {
             if (next.startsWith(firstChar))
                 res.add(next);
         }
-        
-        return res;
-    }
-
-    public ArrayList<String> randomDefinitionMode() {
-        // init Random
-
-        ArrayList<String> res = random4Words();
-
-        int ans = r.nextInt(res.size());
-        res.add(res.get(ans));
-        res.add("" + ans);
-
-        for (int i = 0; i < 4; ++i) {
-            String[] ds = getDefinitions(res.get(i)).toArray(new String[0]);
-            res.set(i, ds[r.nextInt(ds.length)]);
-        }
 
         return res;
     }
 
     /**
      *
-     * @return an array, in which: 
-     * 1st ~ 4th: 4 definitions (randomized) 
-     * 5th: the word 
-     * 6th: the index of the correct definition to the word
+     * @param GameMode
+     * @return an array, in which: 1st ~ 4th: 4 definitions (randomized) 5th:
+     * the word 6th: the index of the correct definition to the word
      */
-    public ArrayList<String> randomWordMode() {
+    public ArrayList<String> randomForQuiz(int GameMode) {
 
         ArrayList<String> res = random4Words();
 
@@ -171,9 +154,15 @@ public class Dictionary {
         res.add(res.get(ans));
         res.add("" + ans);
 
-        String[] ds = getDefinitions(res.get(4)).toArray(new String[0]);
-        res.set(4, ds[r.nextInt(ds.length)]);
-
+        if (GameMode == 0) {
+            String[] ds = getDefinitions(res.get(4)).toArray(new String[0]);
+            res.set(4, ds[r.nextInt(ds.length)]);
+        } else {
+            for (int i = 0; i < 4; ++i) {
+                String[] ds = getDefinitions(res.get(i)).toArray(new String[0]);
+                res.set(i, ds[r.nextInt(ds.length)]);
+            }
+        }
         return res;
     }
 
